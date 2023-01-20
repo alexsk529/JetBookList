@@ -7,7 +7,18 @@ const booksSlice = createSlice({
     initialState,
     reducers: {
         addBook(state, action) {
-            state.push(action.payload);
+            const form = action.payload;
+            const slice = (str, n) => {
+                if (str.length > n) {
+                    str = str.slice(0,n)
+                    str = str + '...'
+                }
+                return str
+            } 
+            form.author = slice(form.author, 16)
+            form.book = slice(form.book, 21)
+            
+            state.push(form);
             localStorage.setItem('books', JSON.stringify(current(state)))
         }
     }
